@@ -334,7 +334,7 @@ namespace watchtower.Services {
                 throw new ArgumentException($"Expected Index 0|1, got {team.Index}");
             }
 
-            _MatchLog.Log($"Team {team.Index + 1}:KILL>> {ev.KilledCharacterID}");
+            _MatchLog.Log($"Team {team.Index + 1}:DEATH>> {ev.KilledCharacterID} was killed by {ev.AttackerCharacterID}. This gives the other team 1 point");
         }
 
 
