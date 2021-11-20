@@ -185,6 +185,8 @@ namespace watchtower.Services {
                 SetScore(entry.Value.Index, 0);
             }
 
+            _AdminLog.Log($"Match explicitly cleared");
+
             _MatchTimer.Stop();
             _MatchTicks = 0;
 
