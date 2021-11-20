@@ -257,12 +257,29 @@ namespace watchtower.Services {
                 return;
             }
 
+            int points = 0;
+            string size = "";
+
             if (ev.ExpID == "616") { // Small
-
-            } else if (ev.ExpID == "") {
-
+                points = 2;
+                size = "small";
+            } else if (ev.ExpID == "604") { // Medium
+                points = 4;
+                size = "medium";
+            } else if (ev.ExpID == "628") { // Large
+                points = 6;
+                size = "large";
+            } else if (ev.ExpID == "57") { // Vehicle ammo thingy
+                points = 4;
+                size = "vehicle ammo";
             }
 
+            if (points == 0) {
+                return;
+            }
+
+            _MatchLog.Log($"Team {team.Index + 1}:BUILDING>> A {size} building was destroyed, granting {points} points");
+            SetScore(team.Index, GetScore(team.Index) + points);
         }
 
         private void VehicleDestroyHandler(object? sender, Ps2EventArgs<VehicleDestroyEvent> args) {
@@ -297,8 +314,6 @@ namespace watchtower.Services {
                 return;
             }
 
-            return;
-
             KillEvent ev = args.Payload;
 
             if (ev.KilledCharacterID == "0") {
@@ -319,7 +334,7 @@ namespace watchtower.Services {
                 throw new ArgumentException($"Expected Index 0|1, got {team.Index}");
             }
 
-            _MatchLog.Log($"Tema {team.Index + 1}:KILL>> {ev.KilledCharacterID}");
+            _MatchLog.Log($"Team {team.Index + 1}:KILL>> {ev.KilledCharacterID}");
         }
 
 
