@@ -54,6 +54,10 @@
                 Timestamp = args.CreatedTime,
                 Content = args.Payload
             });
+
+            if (_messages.Count > 200) {
+                _messages = _messages.Take(200).ToList();
+            }
         }
 
         InvokeAsync(() => {
