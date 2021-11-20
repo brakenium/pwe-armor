@@ -43,10 +43,12 @@
     }
 
     private void OnMessageHandler(object? sender, Ps2EventArgs<string> args) {
-        _messages.Insert(0, new Message() {
-            Timestamp = args.CreatedTime,
-            Content = args.Payload
-        });
+        lock (_messages) {
+            _messages.Insert(0, new Message() {
+                Timestamp = args.CreatedTime,
+                Content = args.Payload
+            });
+        }
 
         InvokeAsync(() => {
             StateHasChanged();
@@ -54,7 +56,10 @@
     }
 
     private void OnClearHandler(object? sender, Ps2EventArgs<int> args) {
-        _messages.Clear();
+        lock (_messages) {
+            _messages.Clear();
+            _messages = new List<Message>();
+        }
     }
 
     public void Dispose() {
