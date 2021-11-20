@@ -1,0 +1,147 @@
+﻿@page "/overlay"
+
+@using watchtower.Models;
+@using watchtower.Models.Events;
+@using watchtower.Services;
+@using Microsoft.Extensions.Logging
+
+@inject IEventBroadcastService _Events
+@inject IMatchManager _Match
+@inject ILogger<Overlay> _Logger
+
+<!--
+<img src="/font/example.png" style="position:absolute; z-index: -10;" />
+-->
+
+<div class="overlay-parent" style="font-family: ps2-mono; font-size: 28pt; color: white; position: absolute; left: 50%; transform: translate(-50%); width: 480px;">
+    <span class="d-inline-block" style="width: 49%;">
+        @if (_team1 != null) {
+            <Faction FactionID="@_team1.FactionID"></Faction>
+            @_team1.Score
+        }
+    </span>
+
+    <span class="d-inline-block" style="width: 49%;">
+        @if (_team2 != null) {
+            @_team2.Score
+            <Faction FactionID="@_team2.FactionID"></Faction>
+        }
+    </span>
+</div>
+
+<div style="position: absolute; left: 50%; transform: translate(-50%); color: white; top: 128px; font-size: 24pt; font-family: ps2-mono;">
+    <Timer Seconds="_MatchLength - _Timer"></Timer>
+</div>
+
+<style>
+    .table td {
+        border-top: unset !important;
+    }
+
+    .overlay-parent {
+        position: absolute;
+        font-family: ps2;
+        font-size: 24pt;
+        color: #e8b55c;
+        background-color: #373737;
+        border: 3px #e8b55c solid;
+        border-radius: 6px;
+        transform: translate(-50%);
+        left: 50%;
+    }
+
+    .overlay-name {
+        width: 200px;
+        display: inline-block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        vertical-align: top;
+    }
+
+    .overlay-name-left {
+        text-align: start;
+        padding-left: 1rem;
+    }
+
+    .overlay-name-right {
+        text-align: end;
+        padding-right: 1rem;
+    }
+
+    .overlay-score {
+        display: inline-block;
+        width: 70px;
+        padding: 0 0.5rem;
+    }
+
+    .overlay-score-left {
+        border-right: 3px #e8b55c solid;
+        text-align: end;
+    }
+
+    .overlay-score-right {
+        border-left: 3px #e8b55c solid;
+        text-align: start;
+    }
+
+</style>
+
+@code {
+
+    private TrackedPlayer? _team1 = null;
+    private TrackedPlayer? _team2 = null;
+
+    private int _MatchLength = 5400;
+    //private int _MatchLength = 10;
+    private MatchSettings _MatchSettings = default!;
+
+    private int _Timer = 0;
+
+    protected override void OnInitialized() {
+        base.OnInitialized();
+
+        _Events.OnPlayerUpdateEvent += OnPlayerUpdate;
+        _Events.OnTimerEvent += OnTimerUpdate;
+        _Events.OnMatchSettingsEvent += OnSettingsUpdate;
+
+        _team1 = _Match.GetTeam(0);
+        _team2 = _Match.GetTeam(1);
+
+        _Timer = _Match.GetMatchLength();
+
+        _MatchSettings = _Match.GetSettings();
+    }
+
+    private void OnPlayerUpdate(object? sender, Ps2EventArgs<TrackedPlayer?> args) {
+        TrackedPlayer? player = args.Payload;
+
+        if (player != null) {
+            if (player.Index == 0) {
+                _team1 = player;
+            } else if (player.Index == 1) {
+                _team2 = player;
+            }
+        }
+
+        InvokeAsync(() => {
+            StateHasChanged();
+        });
+    }
+
+    private void OnTimerUpdate(object? sender, Ps2EventArgs<int> args) {
+        _Timer = args.Payload;
+
+        if (_MatchLength - _Timer <= 0) {
+            _Match.StopRound();
+        }
+
+        InvokeAsync(() => {
+            StateHasChanged();
+        });
+    }
+
+    private void OnSettingsUpdate(object? sender, Ps2EventArgs<MatchSettings> args) {
+        _MatchSettings = args.Payload;
+    }
+
+}

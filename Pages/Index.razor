@@ -1,0 +1,221 @@
+﻿@page "/"
+
+@using watchtower.Services;
+@using watchtower.Models;
+@using watchtower.Models.Events;
+@using watchtower.Constants;
+@using watchtower.Pages.Components; 
+
+@inject IMatchManager _Match; 
+@inject IEventBroadcastService _Events;
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h1>Team setup</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-3">
+            <h2>Team 1</h2>
+
+            <EditForm Model="@_team1Faction" OnValidSubmit="ChangeTeam1Faction">
+                <div class="input-group">
+                    <span class="input-group-append input-group-text">
+                        Faction
+                    </span>
+
+                    <select class="form-control" @bind="_team1Faction">
+                        <option value="1">VS</option>
+                        <option value="2">NC</option>
+                        <option value="3">TR</option>
+                    </select>
+
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-success">
+                            Set
+                        </button>
+                    </div>
+                </div>
+            </EditForm>
+        </div>
+
+        <div class="col-3">
+            <h2>Team 2</h2>
+
+            <EditForm Model="@_team2Faction" OnValidSubmit="ChangeTeam2Faction">
+                <div class="input-group">
+                    <span class="input-group-append input-group-text">
+                        Faction
+                    </span>
+
+                    <select class="form-control" @bind="_team2Faction">
+                        <option value="1">VS</option>
+                        <option value="2">NC</option>
+                        <option value="3">TR</option>
+                    </select>
+
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-success">
+                            Set
+                        </button>
+                    </div>
+                </div>
+            </EditForm>
+        </div>
+
+        <div class="col-3">
+            <h2>Logs</h2>
+
+            <MessageLog></MessageLog>
+
+            <div class="mb-2"></div>
+
+            <AdminLog></AdminLog>
+        </div>
+
+        <div class="col-3">
+            <h2>Match</h2>
+
+            <div>
+                <h4>Team 1</h4>
+
+                @if (_team1 == null) {
+                    <h4 class="text-danger">UNSET</h4>
+                } else {
+                    <div>
+                        Faction: <Faction FactionID="@_team1.FactionID"></Faction>
+                    </div>
+
+                    <div>
+                        Score: @_team1.Score
+                    </div>
+
+                    <div class="btn-group w-100 mb-2">
+                        <button type="button" class="btn btn-success" @onclick="() => _Match.SetScore(0, _Match.GetScore(0) + 1)">+1</button>
+                        <button type="button" class="btn btn-danger" @onclick="() => _Match.SetScore(0, _Match.GetScore(0) - 1)">-1</button>
+                    </div>
+                }
+            </div>
+
+            <div>
+                <h4>Team 2</h4>
+
+                @if (_team2 == null) {
+                    <h4 class="text-danger">UNSET</h4>
+                } else {
+                    <div>
+                        Faction: <Faction FactionID="@_team2.FactionID"></Faction>
+                    </div>
+                    <div>
+                        Score: @_team2.Score
+                    </div>
+
+                    <div class="btn-group w-100">
+                        <button type="button" class="btn btn-success" @onclick="() => _Match.SetScore(1, _Match.GetScore(1) + 1)">+1</button>
+                        <button type="button" class="btn btn-danger" @onclick="() => _Match.SetScore(1, _Match.GetScore(1) - 1)">-1</button>
+                    </div>
+                }
+            </div>
+
+            <hr />
+
+            <h2>Controls</h2>
+
+            <div class="mb-4">
+                Current state: @_MatchState
+            </div>
+
+            <button type="button" class="btn btn-primary d-block" @onclick="() => _Match.StartRound()">Start round</button>
+            <p>Start the round and timer</p>
+
+            <button type="button" class="btn btn-danger d-block" @onclick="() => _Match.ClearMatch()">Reset match</button>
+            <p>Reset the match, clearing everything</p>
+
+            <h2 class="mt-4">Other pages:</h2>
+
+            <div>
+                <a href="/overlay" target="_blank">Overlay</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@code {
+
+    private int _team1Faction = 1;
+    private TrackedPlayer? _team1;
+
+    private int _team2Faction = 2;
+    private TrackedPlayer? _team2;
+
+    private MatchState _MatchState = MatchState.UNSTARTED;
+    private MatchSettings _MatchSettings = new MatchSettings();
+
+    private string _matchLength = "0";
+
+    private string _matchZoneID = "";
+
+    protected override void OnInitialized() {
+        base.OnInitialized();
+
+        _MatchState = _Match.GetState();
+        _MatchSettings = _Match.GetSettings();
+
+        _matchZoneID = (_MatchSettings.ZoneID ?? "").ToString();
+
+        _matchLength = _Match.GetMatchLength().ToString();
+
+        _Events.OnMatchStateEvent += OnMatchStateEvent;
+        _Events.OnPlayerUpdateEvent += OnPlayerUpdateEvent;
+
+        _team1 = _Match.GetTeam(0);
+        _team2 = _Match.GetTeam(1);
+    }
+
+    private void OnMatchStateEvent(object? sender, Ps2EventArgs<MatchState> args) {
+        _MatchState = args.Payload;
+    }
+
+    private void OnPlayerUpdateEvent(object? sender, Ps2EventArgs<TrackedPlayer?> args) {
+        if (args.Payload == null) {
+            return;
+        }
+
+        if (args.Payload.Index == 0) {
+            _team1 = args.Payload;
+        } else if (args.Payload.Index == 1) {
+            _team2 = args.Payload;
+        }
+
+        InvokeAsync(() => {
+            StateHasChanged();
+        });
+    }
+
+    private void ChangeTeam1Faction() {
+        _Match.AssignTeamFaction(0, _team1Faction);
+    }
+
+    private void ChangeTeam2Faction() {
+        _Match.AssignTeamFaction(1, _team2Faction);
+    }
+
+    private void SetZoneID() {
+        if (_matchZoneID == "") {
+            _MatchSettings.ZoneID = null;
+        } else {
+            bool res = Int32.TryParse(_matchLength, out _);
+            if (res == false) {
+                return;
+            }
+
+            _MatchSettings.ZoneID = _matchZoneID;
+        }
+
+        _Match.SetSettings(_MatchSettings);
+    }
+
+}

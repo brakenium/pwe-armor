@@ -1,0 +1,45 @@
+﻿@using watchtower.Services
+
+@inject IMatchManager _Match  
+
+<div>
+    <div>
+        <b>Outfits:</b>
+    </div>
+
+    <table class="table table-sm">
+        <tr class="table-secondary">
+            <th>Outfit</th>
+            <th>Members</th>
+            <th>Faction</th>
+            <td></td>
+        </tr>
+
+        @foreach (TrackedOutfit outfit in Player.Outfits) {
+            <tr>
+                <td>
+                    <span>
+                        [@outfit.Tag]
+                    </span>
+                    <span>
+                        @outfit.Name
+                    </span>
+                </td>
+                <td>
+                    @outfit.Characters.Count
+                    members
+                </td>
+                <td>
+                    <Faction FactionID="@outfit.FactionID"></Faction>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+@code {
+
+    [Parameter]
+    public TrackedPlayer Player { get; set; } = default!;
+
+}
