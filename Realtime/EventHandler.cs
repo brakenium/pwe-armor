@@ -107,7 +107,7 @@ namespace watchtower.Realtime {
                 return;
             }
 
-            string zoneID = token.GetString("zone_id", "");
+            string zoneID = payload.GetString("zone_id", "");
             if (zoneID != "8") {
                 return;
             }
@@ -146,7 +146,7 @@ namespace watchtower.Realtime {
                 return;
             }
 
-            string zoneID = token.GetString("zone_id", "");
+            string zoneID = payload.GetString("zone_id", "");
             if (zoneID != "8") {
                 return;
             }
