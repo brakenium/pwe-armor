@@ -272,8 +272,8 @@ namespace watchtower.Services {
                 points = 6;
                 size = "large";
             } else if (ev.ExpID == "57") { // Vehicle ammo thingy
-                points = 4;
-                size = "vehicle ammo";
+                points = 0;
+                size = "vehicle ammo/mana AI";
             }
 
             if (points == 0) {
