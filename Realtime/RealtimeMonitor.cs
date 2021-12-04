@@ -83,7 +83,7 @@ namespace watchtower.Realtime {
                 Subscription sub = new Subscription() {
                     Characters = { "all" },
                     Events = { "VehicleDestroy", "Death", "GainExperience", "PlayerLogin", "PlayerLogout" },
-                    Worlds = { "17", "19" }
+                    Worlds = { "19" }
                 };
 
                 Subscribe(sub);
