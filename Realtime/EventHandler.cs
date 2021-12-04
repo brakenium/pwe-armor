@@ -107,6 +107,11 @@ namespace watchtower.Realtime {
                 return;
             }
 
+            string zoneID = token.GetString("zone_id", "");
+            if (zoneID != "8") {
+                return;
+            }
+
             DateTime timestamp = DateTimeOffset.FromUnixTimeMilliseconds((payload.Value<long?>("timestamp") ?? 0) * 1000).UtcDateTime;
 
             string charID = payload.Value<string?>("character_id") ?? "0";
@@ -138,6 +143,11 @@ namespace watchtower.Realtime {
         private void _ProcessExperience(JToken payload) {
             string worldID = payload.Value<string>("world_id");
             if (worldID != "19") {
+                return;
+            }
+
+            string zoneID = token.GetString("zone_id", "");
+            if (zoneID != "8") {
                 return;
             }
 
@@ -183,6 +193,11 @@ namespace watchtower.Realtime {
         private void _ProcessVehicleDestroy(JToken token) {
             string worldID = token.Value<string>("world_id");
             if (worldID != "19") {
+                return;
+            }
+
+            string zoneID = token.GetString("zone_id", "");
+            if (zoneID != "8") {
                 return;
             }
 
