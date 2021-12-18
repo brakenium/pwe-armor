@@ -121,7 +121,7 @@ namespace watchtower.Code.Constants {
         /*
         public static PsVehicle CONSTRUCTION_AA_TURRET2 = new PsVehicle(Vehicle.FLASH, "Flash", 1, 1);
         */
-        public static PsVehicle COLOSSUS = new PsVehicle(Vehicle.COLOSSUS, "Colossus", 0, 0);
+        public static PsVehicle COLOSSUS = new PsVehicle(Vehicle.COLOSSUS, "Colossus", 1, 50);
         public static PsVehicle POCKET_FLASH = new PsVehicle(Vehicle.POCKET_FLASH, "Flash XS-1", 0, 0);
         public static PsVehicle FLAIL = new PsVehicle(Vehicle.FLAIL, "Flail", 3, 0);
         public static PsVehicle JAVELIN = new PsVehicle(Vehicle.JAVELIN, "Javelin", 0, 0);
