@@ -44,7 +44,7 @@ namespace watchtower.Services {
 
         private DateTime _MatchStart = DateTime.UtcNow;
         private DateTime? _MatchEnd = null;
-        private int _MatchLength = 60 * 90;
+        private int _MatchLength = 60 * 45;
 
         private long _MatchTicks = 0;
         const double TICKS_PER_SECOND = 10000000D;
@@ -263,16 +263,16 @@ namespace watchtower.Services {
             string size = "";
 
             if (ev.ExpID == "616") { // Small
-                points = 2;
+                points = 6;
                 size = "small";
             } else if (ev.ExpID == "604") { // Medium
-                points = 4;
+                points = 6;
                 size = "medium";
             } else if (ev.ExpID == "628") { // Large
                 points = 6;
                 size = "large";
             } else if (ev.ExpID == "57") { // Vehicle ammo thingy
-                points = 0;
+                points = 6;
                 size = "vehicle ammo/mana AI";
             }
 
