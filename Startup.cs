@@ -61,8 +61,6 @@ namespace watchtower {
             services.AddHostedService<HostedRealtimeMonitor>();
             services.AddHostedService<EventProcessService>();
 
-            Facilities.DoHorribleUglyThing();
-
             Console.WriteLine($"Services configured");
         }
 
