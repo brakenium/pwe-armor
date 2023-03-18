@@ -19,10 +19,10 @@ namespace watchtower.Code.Constants {
             ExperienceID = expID;
         }
 
-        private const int POINTS_SMALL = 2;
-        private const int POINTS_MEDIUM = 4;
+        private const int POINTS_SMALL = 6;
+        private const int POINTS_MEDIUM = 6;
         private const int POINTS_LARGE = 6;
-        private const int POINTS_OTHER = 4;
+        private const int POINTS_OTHER = 6;
 
         public static BuildingExperience ALARM_MODULE = new BuildingExperience("Alarm Module", POINTS_SMALL, "616");
         public static BuildingExperience BLAST_WALL = new BuildingExperience("Blast Wall", POINTS_LARGE, "616");
