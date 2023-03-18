@@ -89,17 +89,17 @@ namespace watchtower.Code.Constants {
             return v;
         }
 
-        public static PsVehicle INFANTRY = new PsVehicle("0", "Infantry", 1, 1);
-        public static PsVehicle FLASH = new PsVehicle(Vehicle.FLASH, "Flash", 1, 1);
+        public static PsVehicle INFANTRY = new PsVehicle("0", "Infantry", 1, 0);
+        public static PsVehicle FLASH = new PsVehicle(Vehicle.FLASH, "Flash", 1, 2);
         public static PsVehicle SUNDERER = new PsVehicle(Vehicle.SUNDERER, "Sunderer", 1, 2);
         public static PsVehicle LIGHTNING = new PsVehicle(Vehicle.LIGHTNING, "Lightning", 1, 2);
-        public static PsVehicle MAGRIDER = new PsVehicle(Vehicle.MAGRIDER, "Magrider", 1, 3);
-        public static PsVehicle VANGUARD = new PsVehicle(Vehicle.VANGUARD, "Vanguard", 1, 3);
-        public static PsVehicle PROWLER = new PsVehicle(Vehicle.PROWLER, "Prowler", 1, 3);
-        public static PsVehicle SCYTHE = new PsVehicle(Vehicle.SCYTHE, "Scythe", 1, 1);
-        public static PsVehicle REAVER = new PsVehicle(Vehicle.REAVER, "Reaver", 1, 1);
-        public static PsVehicle MOSQUITO = new PsVehicle(Vehicle.MOSQUITO, "Mosquito", 1, 1);
-        public static PsVehicle LIBERATOR = new PsVehicle(Vehicle.LIBERATOR, "Liberator", 1, 3);
+        public static PsVehicle MAGRIDER = new PsVehicle(Vehicle.MAGRIDER, "Magrider", 1, 4);
+        public static PsVehicle VANGUARD = new PsVehicle(Vehicle.VANGUARD, "Vanguard", 1, 4);
+        public static PsVehicle PROWLER = new PsVehicle(Vehicle.PROWLER, "Prowler", 1, 4);
+        public static PsVehicle SCYTHE = new PsVehicle(Vehicle.SCYTHE, "Scythe", 0, 0);
+        public static PsVehicle REAVER = new PsVehicle(Vehicle.REAVER, "Reaver", 0, 0);
+        public static PsVehicle MOSQUITO = new PsVehicle(Vehicle.MOSQUITO, "Mosquito", 0, 0);
+        public static PsVehicle LIBERATOR = new PsVehicle(Vehicle.LIBERATOR, "Liberator", 0, 0);
         public static PsVehicle GALAXY = new PsVehicle(Vehicle.GALAXY, "Galaxy", 0, 0);
         public static PsVehicle HARASSER = new PsVehicle(Vehicle.HARASSER, "Harasser", 1, 2);
         public static PsVehicle DROP_POD = new PsVehicle(Vehicle.DROP_POD, "Drop pod", 0, 0);
@@ -107,23 +107,23 @@ namespace watchtower.Code.Constants {
         public static PsVehicle ANT = new PsVehicle(Vehicle.ANT, "ANT", 1, 3);
         public static PsVehicle SPITFIRE = new PsVehicle(Vehicle.SPITFIRE, "Spitfire", 0, 0);
         public static PsVehicle CONSTRUCTION_AI_TURRET = new PsVehicle(Vehicle.CONSTRUCTION_AI, "AA Turret", 2, 0);
-        public static PsVehicle MANA_AI = new PsVehicle(Vehicle.MANA_AI, "MANA AI", 1, 1);
-        public static PsVehicle MANA_AV = new PsVehicle(Vehicle.MANA_AV, "MANA AV", 1, 1);
-        public static PsVehicle CONSTRUCTION_AA_TURRET = new PsVehicle(Vehicle.CONSTRUCTION_AA, "AA Turret", 2, 0);
-        public static PsVehicle CONSTRUCTION_AV_TURRET = new PsVehicle(Vehicle.CONSTRUCTION_AV, "AV Turret", 2, 0);
-        public static PsVehicle CONSTRUCTION_AV_TOWER = new PsVehicle(Vehicle.CONSTRUCTION_AV_TOWER, "AV Tower", 2, 0);
-        public static PsVehicle CONSTRUCTION_AA_TOWER = new PsVehicle(Vehicle.CONSTRUCTION_AA_TOWER, "AA Tower", 2, 0);
-        public static PsVehicle CONSTRUCTION_AI_TOWER = new PsVehicle(Vehicle.CONSTRUCTION_AI_TOWER, "AI Tower", 2, 0);
-        public static PsVehicle GLAIVE = new PsVehicle(Vehicle.GLAIVE, "Glaive", 3, 0);
-        public static PsVehicle PHOENIX = new PsVehicle(Vehicle.PHOENIX, "Phoenix", 0, 0);
-        public static PsVehicle CONSTRUCTION_AV_TURRET2 = new PsVehicle(Vehicle.CONSTRUCTION_AV2, "AV Turret 2", 2, 0);
-        public static PsVehicle CONSTRUCTION_AI_TURRET2 = new PsVehicle(Vehicle.CONSTRUCTION_AI2, "AI Turret 2", 2, 0);
+        public static PsVehicle MANA_AI = new PsVehicle(Vehicle.MANA_AI, "MANA AI", 1, 0);
+        public static PsVehicle MANA_AV = new PsVehicle(Vehicle.MANA_AV, "MANA AV", 1, 0);
+        public static PsVehicle CONSTRUCTION_AA_TURRET = new PsVehicle(Vehicle.CONSTRUCTION_AA, "AA Turret", 1, 0);
+        public static PsVehicle CONSTRUCTION_AV_TURRET = new PsVehicle(Vehicle.CONSTRUCTION_AV, "AV Turret", 1, 0);
+        public static PsVehicle CONSTRUCTION_AV_TOWER = new PsVehicle(Vehicle.CONSTRUCTION_AV_TOWER, "AV Tower", 1, 0);
+        public static PsVehicle CONSTRUCTION_AA_TOWER = new PsVehicle(Vehicle.CONSTRUCTION_AA_TOWER, "AA Tower", 1, 0);
+        public static PsVehicle CONSTRUCTION_AI_TOWER = new PsVehicle(Vehicle.CONSTRUCTION_AI_TOWER, "AI Tower", 1, 0);
+        public static PsVehicle GLAIVE = new PsVehicle(Vehicle.GLAIVE, "Glaive", 1, 0);
+        public static PsVehicle PHOENIX = new PsVehicle(Vehicle.PHOENIX, "Phoenix", 1, 0);
+        public static PsVehicle CONSTRUCTION_AV_TURRET2 = new PsVehicle(Vehicle.CONSTRUCTION_AV2, "AV Turret 2", 1, 0);
+        public static PsVehicle CONSTRUCTION_AI_TURRET2 = new PsVehicle(Vehicle.CONSTRUCTION_AI2, "AI Turret 2", 1, 0);
         /*
         public static PsVehicle CONSTRUCTION_AA_TURRET2 = new PsVehicle(Vehicle.FLASH, "Flash", 1, 1);
         */
-        public static PsVehicle COLOSSUS = new PsVehicle(Vehicle.COLOSSUS, "Colossus", 1, 50);
+        public static PsVehicle COLOSSUS = new PsVehicle(Vehicle.COLOSSUS, "Colossus", 1, 100);
         public static PsVehicle POCKET_FLASH = new PsVehicle(Vehicle.POCKET_FLASH, "Flash XS-1", 0, 0);
-        public static PsVehicle FLAIL = new PsVehicle(Vehicle.FLAIL, "Flail", 3, 0);
+        public static PsVehicle FLAIL = new PsVehicle(Vehicle.FLAIL, "Flail", 1, 0);
         public static PsVehicle JAVELIN = new PsVehicle(Vehicle.JAVELIN, "Javelin", 0, 0);
         public static PsVehicle JAVELIN2 = new PsVehicle(Vehicle.JAVELIN2, "Javelin2", 0, 0);
         public static PsVehicle JAVELIN3 = new PsVehicle(Vehicle.JEVELIN3, "Javelin3", 0, 0);
